@@ -48,8 +48,9 @@ class ArcLayer: CAShapeLayer {
         let arcPath = UIBezierPath()
         arcPath.moveToPoint(CGPoint(x: 0.0, y: 100.0))
         arcPath.addLineToPoint(CGPoint(x: 0.0, y: 60.0))
-        arcPath.addCurveToPoint(CGPoint(x: 100.0,y: 60.0), controlPoint1: CGPoint(x: 30.0,y: 65.0), controlPoint2: CGPoint(x: 40.0,y: 50.0))
+        arcPath.addCurveToPoint(CGPoint(x: 100.0, y: 60.0), controlPoint1: CGPoint(x: 30.0, y: 65.0), controlPoint2: CGPoint(x: 40.0, y: 50.0))
         arcPath.addLineToPoint(CGPoint(x: 100.0, y: 100.0))
+        arcPath.addLineToPoint(CGPoint(x: 0.0, y: 100.0))
         arcPath.closePath()
         return arcPath
     }
@@ -65,7 +66,7 @@ class ArcLayer: CAShapeLayer {
         return arcPath
     }
     
-    var arcPathHight: UIBezierPath {
+    var arcPathHigh: UIBezierPath {
         let arcPath = UIBezierPath()
         arcPath.moveToPoint(CGPoint(x: 0.0, y: 100.0))
         arcPath.addLineToPoint(CGPoint(x: 0.0, y: 20.0))
@@ -108,19 +109,19 @@ class ArcLayer: CAShapeLayer {
         
         let arcHighAnimation = CABasicAnimation(keyPath: "path")
         arcHighAnimation.fromValue = arcPathLow.CGPath
-        arcHighAnimation.toValue = arcPathHight.CGPath
+        arcHighAnimation.toValue = arcPathHigh.CGPath
         arcHighAnimation.beginTime = arcMidAnimation.beginTime + arcMidAnimation.duration
         arcHighAnimation.duration = animationDuration
         
         let arcCompleteAnimation = CABasicAnimation(keyPath: "path")
-        arcCompleteAnimation.fromValue = arcPathHight.CGPath
+        arcCompleteAnimation.fromValue = arcPathHigh.CGPath
         arcCompleteAnimation.toValue = arcPathComplete.CGPath
         arcCompleteAnimation.beginTime = arcHighAnimation.beginTime + arcHighAnimation.duration
         arcCompleteAnimation.duration = animationDuration
         
         let arcAnimationGroup = CAAnimationGroup()
         arcAnimationGroup.animations = [ arcPreAnimation, arcLowAnimation, arcMidAnimation, arcHighAnimation, arcCompleteAnimation ]
-        arcAnimationGroup.duration = arcCompleteAnimation.duration + animationDuration
+        arcAnimationGroup.duration = arcCompleteAnimation.beginTime + arcCompleteAnimation.duration
         arcAnimationGroup.fillMode = kCAFillModeForwards
         arcAnimationGroup.removedOnCompletion = false
         addAnimation(arcAnimationGroup, forKey: nil)
