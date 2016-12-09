@@ -8,10 +8,6 @@
 
 import UIKit
 
-//protocol HolderViewDelegate:class {
-//    func animateLabel()
-//}
-
 class HolderView: UIView {
     
     let ovalLayer = OvalLayer()
@@ -24,7 +20,6 @@ class HolderView: UIView {
     
     
     var parentFrame :CGRect = CGRectZero
-//    weak var delegate:HolderViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +40,20 @@ class HolderView: UIView {
         layer.addSublayer(triangleLayer)
         ovalLayer.wooble()
         NSTimer.scheduledTimerWithTimeInterval(0.9, target: self, selector: #selector(self.drawAnimatedTriangle), userInfo: nil, repeats: false)
+    }
+    
+    func expandView() {
+        backgroundColor = Colors.blue
+        
+        frame = CGRect(x: frame.origin.x - blueRectangleLayer.lineWidth,
+                       y: frame.origin.y - blueRectangleLayer.lineWidth,
+                       width: frame.size.width + blueRectangleLayer.lineWidth * 2.0,
+                       height: frame.size.height + blueRectangleLayer.lineWidth * 2.0)
+        layer.sublayers = nil
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseInOut], animations: { 
+            self.frame = self.parentFrame
+            }, completion: nil)
     }
     
     func drawAnimatedTriangle() {
@@ -81,6 +90,7 @@ class HolderView: UIView {
     func drawArc() {
         layer.addSublayer(arcLayer)
         arcLayer.animate()
+        NSTimer.scheduledTimerWithTimeInterval(0.90, target: self, selector: #selector(self.expandView), userInfo: nil, repeats: false)
     }
 }
 

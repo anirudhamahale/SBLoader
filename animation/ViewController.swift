@@ -30,8 +30,6 @@ class ViewController: UIViewController {
                                   y: view.bounds.height/2 - boxSize/2,
                                   width: boxSize, height: boxSize)
         holderView.parentFrame = view.frame
-//        holderView.delegate = self
-//        holderView.backgroundColor = UIColor.greenColor()
         view.addSubview(holderView)
     }
 
